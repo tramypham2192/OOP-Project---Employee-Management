@@ -26,13 +26,13 @@ public class DepartmentHead extends Person {
         return this.employeeList;
     }
 
-    public void themNhanVienVaoTeam(NhanVien nv){
-        this.soLuongNVcapDuoi++;
-        danhSachNhanVienDuoiQuyen.add(nv);
+    public void addEmployee(Employee nv){
+        this.numberOfEmployees++;
+        employeeList.add(nv);
     }
 
-    public int cachTinhLuong(int soNgayLamViec){
-        return 200 * soNgayLamViec * this.soLuongNVcapDuoi; //luong cua truong phong 1 ngay la 200
+    public int calculateSalary(int numberOfWorkingDays){
+        return 200 * numberOfWorkingDays * this.numberOfEmployees; //daily salary of department head is 200
     }
 
 
