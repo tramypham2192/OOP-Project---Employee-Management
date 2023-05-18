@@ -71,221 +71,221 @@ public class Main {
                 break;
 
             case "2":
-                //Lay ra danh sach toan bo cong nhan vien trong cong ty roi lay ra danh sach truong phong dang co
+                //get the list of all workers then get the list of current head of departments
                 ArrayList<DepartmentHead> listDepartmentHead2 = listOfAllWorkers.get(1);
-                ArrayList<NhanVien> danhSachNhanVienCapDuoiDangCo = listOfAllWorkers.get(2);
-                //Nhap thong tin truong phong can them nhan vien
-                System.out.println("Nhap vao ma so cua truong phong can phan bo them nhan vien: ");
-                String maSoCuaTruongPhongCanThemNhanVien = sc.next();
-                //Tinh so nhan vien can them vao cho truong phong co ma so nhu tren va get danh sach nhan vien cap duoi hien tai truong
-                //phong co ma so nhu tren dang co
-                int soNhanVienCanThem = 0;
+                ArrayList<NhanVien> listOfEmployee2 = listOfAllWorkers.get(2);
+                //Input the info of deapartment head receiving new employee(s)
+                System.out.println("Input Id of the Department Head: ");
+                String idOfDepartmentHead = sc.next();
+                //Calculate the number of employees that Head of Department with Id idOfDepartmentHead need to be added 
+                int numberOfEmployeeToBeAddes = 0;
                 for (int i = 0; i < listDepartmentHead2.size(); i++){
-                    if (listDepartmentHead2.get(i).getMaSo().equals(maSoCuaTruongPhongCanThemNhanVien)){
-                        soNhanVienCanThem = listDepartmentHead2.get(i).getSoLuongNVcapDuoi() - listDepartmentHead2.get(i).danhSachNhanVienDuoiQuyen.size();
+                    if (listDepartmentHead2.get(i).getId().equals(idOfDepartmentHead)){
+                        numberOfEmployeeToBeAddes = listDepartmentHead2.get(i).getNumberOfEmployees() - listDepartmentHead2.get(i).getEmployeeList().size();
                     }
                 }
-                System.out.println("Truong phong co ma so " + maSoCuaTruongPhongCanThemNhanVien + " can duoc them " + soNhanVienCanThem + " nhan vien" );
-                //Them vao thong tin cac nhan vien phan bo cho truong phong co ma so nhu tren
-                //Neu truong phong co du so nhan vien duoc khoi tao luc ban dau roi nhung van muon add them nhan vien
-                if (soNhanVienCanThem == 0){
-                    System.out.println("Hien tai truong phong nay co du so nhan vien duoc phan cong ban dau roi. Ban van muon them nhan vien?");
-                    String cauTraLoi = sc.next();
-                    if (cauTraLoi.equals("Them")){
-                        System.out.println("Nhap vao ma so cua nhan vien :");
-                        String maSo = sc.next();
-                        System.out.println("Nhap vao ho ten cua nhan vien:");
-                        String hoTen = sc.next();
-                        System.out.println("Nhap vao so dien thoai cua nhan vien:");
-                        String soDienThoai = sc.next();
-                        System.out.println("Nhap vao so ngay lam viec cua nhan vien:");
-                        int soNgayLamViec = sc.nextInt();
-                        NhanVien nhanVienObj = new NhanVien(maSo, hoTen, soDienThoai, soNgayLamViec, 100, maSoCuaTruongPhongCanThemNhanVien);
-                        danhSachNhanVienCapDuoiDangCo.add(nhanVienObj);
-                        System.out.println("Truong phong co ma so " + maSoCuaTruongPhongCanThemNhanVien + "co list nhan vien sau khi them nhan vien vua roi nhu sau: ");
-                        for (NhanVien nv : danhSachNhanVienCapDuoiDangCo){
-                            nv.lietKeThongTinNhanVien();
+                System.out.println("Department head with Id " + idOfDepartmentHead + " need to have " + numberOfEmployeeToBeAddes + " to be added" );
+                //Input employee(s) info to be added
+                //If the department head have all the number of employee (s)he has been asigned but still want to add more employee(s)
+                if (numberOfEmployeeToBeAddes == 0){
+                    System.out.println("This department head has all the employees (s)he has been assigned. Do you still want to add more employee(s) for him(her) ?. Say yes if you want to add");
+                    String addOrNot = sc.next();
+                    if (addOrNot.equalsIgnoreCase("yes")){
+                        System.out.println("Input employee id:");
+                        String id = sc.next();
+                        System.out.println("Input employee name:");
+                        String name = sc.next();
+                        System.out.println("Input employee id phone number:");
+                        String phoneNumber = sc.next();
+                        System.out.println("Input employee number of working days:");
+                        int numberOfWorkingDays = sc.nextInt();
+                        NhanVien employeeObj = new Employee(id, name, phoneNumber, numberOfWorkingDays, 100, idOfDepartmentHead);
+                        listOfEmployee2.add(employeeObj);
+                        System.out.println("After adding, the employee list of the Department head with Id " + idOfDepartmentHead + "is: ");
+                        for (Employee nv : listOfEmployee2){
+                            nv.personInfo();
                         }
                     }
                 }
-                //Neu truong phong chua co du so nhan vien duoc phan cong ban dau thi them nhu binh thuong
+                //If the department head has not had the number of employees (s)he has been assigned
                 else {
-                    System.out.println("Nhap thong tin cua nhan vien can them vao cho truong phong co ma so la " + maSoCuaTruongPhongCanThemNhanVien + ":");
-                    for (int i = 1; i <= soNhanVienCanThem; i++){
-                        System.out.println("Nhap vao ma so cua nhan vien thu " + i + ":");
-                        String maSo = sc.next();
-                        System.out.println("Nhap vao ho ten cua nhan vien thu " + i + ":");
-                        String hoTen = sc.next();
-                        System.out.println("Nhap vao so dien thoai cua nhan vien thu " + i + ":");
-                        String soDienThoai = sc.next();
-                        System.out.println("Nhap vao so ngay lam viec cua nhan vien thu " + i + ":");
-                        int soNgayLamViec = sc.nextInt();
-                        NhanVien nhanVienObj = new NhanVien(maSo, hoTen, soDienThoai, soNgayLamViec, 100, maSoCuaTruongPhongCanThemNhanVien);
-                        danhSachNhanVienCapDuoiDangCo.add(nhanVienObj);
+                    for (int i = 1; i <= numberOfEmployeeToBeAddes; i++){
+                        System.out.println("Input employee " + i + " id:");
+                        String id = sc.next();
+                        System.out.println("Input employee " + i + " name:");
+                        String name = sc.next();
+                        System.out.println("Input employee " + i + " phone number:");
+                        String phoneNumber = sc.next();
+                        System.out.println("Input employee " + i + " number of working days:");
+                        int numberOfWorkingDays = sc.nextInt();
+                        Employee employeeObj = new Employee(id, name, phoneNumber, numberOfWorkingDays, 100, idOfDepartmentHead);
+                        listOfEmployee2.add(employeeObj);
                     }
-                    System.out.println("Truong phong co ma so " + maSoCuaTruongPhongCanThemNhanVien + "co list nhan vien sau khi them nhan vien vua roi nhu sau: ");
-                    for (NhanVien nv : danhSachNhanVienCapDuoiDangCo){
-                        nv.lietKeThongTinNhanVien();
+                    System.out.println("After adding, the employee list of the Department head with Id " + idOfDepartmentHead + "is: ");
+                    for (Employee nv : listOfEmployee2){
+                        nv.personInfo();
                     }
                 }
                 break;
 
             case "3":
-                ArrayList<NhanVien> danhSachNhanVien = listOfAllWorkers.get(2);
-                System.out.println("Ban can thay doi thong tin nhan vien hay xoa nhan vien do khoi danh sach nhan vien?: ");
-                String luaChon = sc.next();
-                if (luaChon.equals("thaydoi")){
-                    System.out.println("Nhap thong tin ma so nhan vien can thay doi thong tin: ");
-                    String maSoNVThayDoiInfo = sc.next();
-                    for (int i = 0; i < danhSachNhanVien.size(); i++){
-                        danhSachNhanVien.get(i).lietKeThongTinNhanVien();
-                        if (danhSachNhanVien.get(i).getMaSo().equals(maSoNVThayDoiInfo)){
-                            System.out.println("Nhap thong tin can thay doi (ho ten/so dien thoai/so ngay lam viec):");
-                            String thongTinCanThayDoi = sc.next();
-                            if (thongTinCanThayDoi.equals("hoten")){
-                                System.out.println("Nhap vao ho ten chinh xac cua nhan vien: ");
-                                String hoTenChinhXac = sc.nextLine();
-                                danhSachNhanVien.get(i).setHoTen(hoTenChinhXac);
-                                System.out.println("Thong tin cua nhan vien co ma so " + maSoNVThayDoiInfo + " sau khi thay doi ho ten la:");
-                                danhSachNhanVien.get(i).lietKeThongTinNhanVien();
+                ArrayList<Employee> listOfEmployee3 = listOfAllWorkers.get(2);
+                System.out.println("Do you need to change employee's info or delete employee(s) info? Enter change/delete: ");
+                String changeOrDelete = sc.next();
+                if (changeOrDelete.equalsIgnoreCase("change")){
+                    System.out.println("Input employee id need to be change info: ");
+                    String id = sc.next();
+                    for (int i = 0; i < listOfEmployee3.size(); i++){
+                        listOfEmployee3.get(i).personInfo();
+                        if (listOfEmployee3.get(i).getId().equals(id)){
+                            System.out.println("Input info need to be changed (name/phone number/number of working days):");
+                            String infoToBeChange = sc.next();
+                            if (infoToBeChange.equalsIgnoreCase("name")){
+                                System.out.println("Input employee name: ");
+                                String name = sc.nextLine();
+                                listOfEmployee3.get(i).setName(name);
+                                System.out.println("After changing name, employee with " + id + " has the name as:");
+                                listOfEmployee3.get(i).personInfo();
                             }
                         }
                 }
-                if (luaChon.equals("xoa")){
-                    System.out.println("Nhap thong tin ma so nhan vien can xoa: ");
-                    String maSoNVXoa = sc.next();
-                    for (int i = 0; i < danhSachNhanVien.size(); i++) {
-                        danhSachNhanVien.remove(i);
+                if (changeOrDelete.equalsIgnoreCase("delete")){
+                    System.out.println("Input employee id need to be delete info: ");
+                    String id = sc.next();
+                    for (int i = 0; i < listOfEmployee3.size(); i++) {
+                        listOfEmployee3.remove(i);
                     }
-                    System.out.println("Danh sach nhan vien sau khi xoa:");
-                    for (NhanVien nv : danhSachNhanVien){
-                        nv.lietKeThongTinNhanVien();
+                    System.out.println("Employee list after deleting empployee with id " + id + ":");
+                    for (Employee nv : listOfEmployee3){
+                        nv.personInfo();
                     }
                 }
                 }
 
             case "4":
-                System.out.println("danh sach toan bo cong nhan vien: ");
+                System.out.println("List of all current workers in the company: ");
                 for (int i = 0; i < listOfAllWorkers.size(); i++){
                     System.out.println(listOfAllWorkers.get(i));
                 }
-                System.out.println("Danh sach cac giam doc: ");
-                ArrayList<Director> listGiamDoc = listOfAllWorkers.get(0);
-                for (int i = 0; i < listGiamDoc.size() ; i++){
-                    listGiamDoc.get(i).lietKeThongTinNhanVien();
+                System.out.println("List of all current directors in the company: ");
+                ArrayList<Director> directorList4 = listOfAllWorkers.get(0);
+                for (int i = 0; i < directorList4.size() ; i++){
+                    directorList4.get(i).personInfo();
                 }
-                System.out.println("Danh sach cac truong phong: ");
-                ArrayList<DepartmentHead> departmentHeadList = listOfAllWorkers.get(1);
-                for (DepartmentHead tp : departmentHeadList){
-                    tp.lietKeThongTinNhanVien();
+                System.out.println("List of all current department heads in the company: ");
+                ArrayList<DepartmentHead> departmentHeadList4 = listOfAllWorkers.get(1);
+                for (DepartmentHead tp : departmentHeadList4){
+                    tp.personInfo();
                 }
-                System.out.println("Danh sach cac nhan vien cap duoi cua truong phong: ");
-                ArrayList<NhanVien> employeeList = listOfAllWorkers.get(2);
-                for (NhanVien nv : employeeList){
-                    nv.lietKeThongTinNhanVien();
+                System.out.println("List of all current employees in the company: ");
+                ArrayList<Employee> employeeList = listOfAllWorkers.get(2);
+                for (Employee nv : employeeList){
+                    nv.personInfo();
                 }
                 break;
 
             case "5":
-                //tong luong cac giam doc
-                int tongLuongGiamDoc = 0;
-                ArrayList<Director> lstGD = listOfAllWorkers.get(0);
-                for (Director gd : lstGD){
-                    tongLuongGiamDoc += gd.getLuongTheoNgay() * gd.getSoNgayLamViec();
+                //the sum of directors' salary
+                int sumOfDirectorSalary = 0;
+                ArrayList<Director> directorList5 = listOfAllWorkers.get(0);
+                for (Director gd : directorList5){
+                    sumOfDirectorSalary += gd.getDailySalary() * gd.getNumberOfWorkingDays();
                 }
-                System.out.println("Tong luong cua cac giam doc: " + tongLuongGiamDoc);
-                //tong luong cac truong phong
-                int tongLuongTruongPhong = 0;
-                ArrayList<TruongPhong> lstTP = listOfAllWorkers.get(1);
-                for (TruongPhong tp : lstTP){
-                    tongLuongTruongPhong += tp.getLuongTheoNgay() * tp.getSoNgayLamViec();
+                System.out.println("Sum of directors' salary: " + sumOfDirectorSalary);
+                //the sum of DepartmentHead' salary
+                int sumOfDepartmentHeadSalary = 0;
+                ArrayList<DepartmentHead> departmentHeadList5 = listOfAllWorkers.get(1);
+                for (DepartmentHead tp : departmentHeadList5){
+                    sumOfDepartmentHeadSalary += tp.getDailySalary() * tp.getNumberOfWorkingDays();
                 }
-                System.out.println("Tong luong cua cac truong phong: " + tongLuongTruongPhong);
-                //tong luong nhan vien cap duoi
-                int tongLuongNVCapDuoi = 0;
-                ArrayList<NhanVien> lstNV = listOfAllWorkers.get(2);
-                for (NhanVien nv : lstNV){
-                    tongLuongNVCapDuoi += nv.getLuongTheoNgay() * nv.getSoNgayLamViec();
+                System.out.println("Sum of Department Heads' salary: " + sumOfDepartmentHeadSalary);
+                //the sum of employees' salary
+                int sumOfEmployeeSalary = 0;
+                ArrayList<Employee> employeeList5 = listOfAllWorkers.get(2);
+                for (Employee nv : employeeList5){
+                    sumOfEmployeeSalary += nv.getDailySalary() * nv.getNumberOfWorkingDays();
                 }
-                System.out.println("Tong luong cua cac nhan vien cap duoi: " + tongLuongNVCapDuoi);
+                System.out.println("Sum of Employees' salary: " + sumOfEmployeeSalary);
 
-                System.out.println("Tong luong cua toan bo cong nhan vien la: " + String.valueOf(tongLuongGiamDoc + tongLuongTruongPhong + tongLuongNVCapDuoi));
+                System.out.println("Sum of all workers' salary: " + String.valueOf(sumOfDirectorSalary + sumOfDepartmentHeadSalary + sumOfEmployeeSalary));
                 break;
 
             case "6":
-                ArrayList<NhanVien> listNV = listOfAllWorkers.get(2);
-                ArrayList<Integer> listLuongNV = new ArrayList<>();
-                for (NhanVien nv : listNV){
-                    listLuongNV.add(nv.getLuongTheoNgay() * nv.getSoNgayLamViec());
+                ArrayList<Employee> employeeList6 = listOfAllWorkers.get(2);
+                ArrayList<Integer> employeeSalaryList = new ArrayList<>();
+                for (Employee nv : employeeList6){
+                    employeeSalaryList.add(nv.getDailySalary() * nv.getNumberOfWorkingDays());
                 }
-                int maxSalaryNhanvien = 0;
-                int indexNVmaxSalary = 0;
-                for (int i = 0; i < listLuongNV.size(); i++){
-                    if (maxSalaryNhanvien < listLuongNV.get(i)){
-                        maxSalaryNhanvien = listLuongNV.get(i);
-                        indexNVmaxSalary = i;
+                int maxSalaryAmongEmployee = 0;
+                int indexOfMaxSalary = 0;
+                for (int i = 0; i < employeeSalaryList.size(); i++){
+                    if (maxSalaryAmongEmployee < employeeSalaryList.get(i)){
+                        maxSalaryAmongEmployee = employeeSalaryList.get(i);
+                        indexOfMaxSalary = i;
                     }
                 }
-                System.out.println("Nhan vien co ma so " + listNV.get(indexNVmaxSalary).getMaSo() + " la nhan vien co luong cao nhat trong thang nay");
+                System.out.println("Employee with id " + employeeList6.get(indexOfMaxSalary).getId() + " has the highest salary in this month");
                 break;
 
             case "7":
-                ArrayList<DepartmentHead> listTP = listOfAllWorkers.get(1);
-                int maxSoLuongNVcapDuoi = 0;
-                int indexCuaTPcoMaxSoNVcapDuoi = 0;
-                for (int i = 0; i < listTP.size(); i++){
-                    if (maxSoLuongNVcapDuoi < listTP.get(i).getSoLuongNVcapDuoi()){
-                        maxSoLuongNVcapDuoi = listTP.get(i).getSoLuongNVcapDuoi();
-                        indexCuaTPcoMaxSoNVcapDuoi = i;
+                ArrayList<DepartmentHead> departmentHeadList7 = listOfAllWorkers.get(1);
+                //maxEmployeeNumber = maxNumberOfEmployeesUnderDepartment
+                int maxEmployeeNumber = 0;
+                //idMax = indexOfDepartmentHeadWithMaxNumberOfEmployees
+                int idMax = 0;
+                for (int i = 0; i < departmentHeadList7.size(); i++){
+                    if (maxEmployeeNumber < departmentHeadList7.get(i).getNumberOfEmployees()){
+                        maxEmployeeNumber = departmentHeadList7.get(i).getNumberOfEmployees();
+                        idMax = i;
                     }
                 }
-                System.out.println("Truong phong co ma so " + listTP.get(indexCuaTPcoMaxSoNVcapDuoi).getMaSo() + " la truong phong co" +
-                        " so luong nhan vien duoi quyen nhieu nhat (" + listTP.get(indexCuaTPcoMaxSoNVcapDuoi).getSoLuongNVcapDuoi() +" nhan vien)" );
+                System.out.println("Department Head with id " + departmentHeadList7.get(idMax).getId() + " is the one that has" +
+                        " the max number of employees under his/her management (" + departmentHeadList7.get(idMax).getNumberOfEmployees() +" employees)" );
 
             case "8":
-                ArrayList<NhanVien> listNVien = listOfAllWorkers.get(2);
-                Map<String, NhanVien> map = new HashMap<>();
-                for (int i = 0; i < listNVien.size(); i++){
-                    map.put(listNVien.get(i).getHoTen(), listNVien.get(i));
+                ArrayList<Employee> employeeList8 = listOfAllWorkers.get(2);
+                Map<String, Employee> map = new HashMap<>();
+                for (int i = 0; i < employeeList8.size(); i++){
+                    map.put(employeeList8.get(i).getName(), employeeList8.get(i));
                 }
-                TreeMap<String, NhanVien> sorted = new TreeMap<>(map);
-                System.out.println("list nhan vien sau khi sort ten theo alphabet la: ");
-                Iterator<NhanVien> iterator = sorted.values().iterator();
+                TreeMap<String, Employee> sorted = new TreeMap<>(map);
+                System.out.println("After sorting following ascending alphabetical order, the employee list is: ");
+                Iterator<Employee> iterator = sorted.values().iterator();
                 while(iterator.hasNext()){
-                    iterator.next().lietKeThongTinNhanVien();
+                    iterator.next().personInfo();
                 }
 
             case "9":
-                ArrayList<NhanVien> listEmployee = listOfAllWorkers.get(2);
-                Map<Integer, NhanVien> sortedSalaryMap = new TreeMap<Integer, NhanVien>(Collections.reverseOrder());
-                for (int i = 0; i < listEmployee.size(); i++){
-                    Integer luongNV = 100 * listEmployee.get(i).getSoNgayLamViec();
-                    sortedSalaryMap.put(luongNV, listEmployee.get(i));
+                ArrayList<Employee> employeeList9 = listOfAllWorkers.get(2);
+                Map<Integer, Employee> sortedSalaryMap = new TreeMap<Integer, Employee>(Collections.reverseOrder());
+                for (int i = 0; i < employeeList9.size(); i++){
+                    Integer employeeSalary = 100 * employeeList9.get(i).getNumberOfWorkingDays();
+                    sortedSalaryMap.put(employeeSalary, employeeList9.get(i));
                 }
-                System.out.println("List nhan vien sau khi sort theo luong giam dan la: ");
-                Iterator<NhanVien> salaryIterator = sortedSalaryMap.values().iterator();
+                System.out.println("After sorting following descending employee's salary order, the employee list is: ");
+                Iterator<Employee> salaryIterator = sortedSalaryMap.values().iterator();
                 while(salaryIterator.hasNext()){
-                    salaryIterator.next().lietKeThongTinNhanVien();
+                    salaryIterator.next().personInfo();
                 }
                 break;
 
             case "10":
-                ArrayList<Director> listGD = listOfAllWorkers.get(0);
-                double maxCoPhanNamGiu = 0;
-                int indexCoPhanMax = 0;
-                for (int i = 0; i < listGD.size(); i++){
-                    if (maxCoPhanNamGiu < listGD.get(i).getCoPhanNamGiu()){
-                        maxCoPhanNamGiu = listGD.get(i).getCoPhanNamGiu();
-                        indexCoPhanMax = i;
+                ArrayList<Director> directorList10 = listOfAllWorkers.get(0);
+                double maxEquity = 0;
+                int indexMaxEquity = 0;
+                for (int i = 0; i < directorList10.size(); i++){
+                    if (maxCoPhanNamGiu < directorList10.get(i).getpercentOfEquity()){
+                        maxCoPhanNamGiu = directorList10.get(i).getpercentOfEquity();
+                        indexMaxEquity = i;
                     }
                 }
-                System.out.println("Giam doc co so co phan nhieu nhat co ma so giam doc la: " + listGD.get(indexCoPhanMax).getMaSo());
+                System.out.println("The director that has the max equity is the one that has id: " + directorList10.get(indexMaxEquity).getId());
                 break;
 
             case "11":
-                ArrayList<Director> listGDoc = listOfAllWorkers.get(0);
-                for (int i = 0; i < listGDoc.size(); i++){
-                    System.out.println("Giam doc co ma so " + listGDoc.get(i).getMaSo() + " co thu nhap thang nay la: " + listGDoc.get(i).thuNhapCuaGiamDoc(listGDoc.get(i).getSoNgayLamViec()));
+                ArrayList<Director> directorList11 = listOfAllWorkers.get(0);
+                for (int i = 0; i < directorList11.size(); i++){
+                    System.out.println("The director with id " + directorList11.get(i).getId() + " has this month's income is: " + directorList11.get(i).calculateDirectorIncome(directorList11.get(i).getNumberOfWorkingDays()));
                 }
                 break;
         }
@@ -293,21 +293,21 @@ public class Main {
     }
 
     public static String chooseAnOption(Scanner sc){
-        System.out.println("Cac chuc nang: ");
-        System.out.println("1. Nhap thong tin cong ty");
-        System.out.println("2. Phan bo nhan vien vao truong phong");
-        System.out.println("3. Them, xoa thong tin nhan su bat ki");
-        System.out.println("4. Xuat ra thong tin toan bo nguoi trong cong ty");
-        System.out.println("5- Tinh va xuat tong luong cho toan cong ty");
-        System.out.println("6. Tim nhan vien co luong cao nhat");
-        System.out.println("7. Tim truong phong co so luong nhan vien duoi quyen nhieu nhat");
-        System.out.println("8. Sap xep nhan vien toan cong ty theo thu tu abc");
-        System.out.println("9. Sap xep nhan vien theo thu tu luong giam dan");
-        System.out.println("10. Tim giam doc co so luong co phan nhieu nhat");
-        System.out.println("11. Tinh va xuat tong thu nhap cua tung giam doc");
+        System.out.println("Functions: ");
+        System.out.println("1. Input workers info");
+        System.out.println("2. Input employee info under each department head");
+        System.out.println("3. Add, delete employee info");
+        System.out.println("4. Print out all workers info");
+        System.out.println("5- Print out all workers' salary info");
+        System.out.println("6. Find the employee with highest salary in this month");
+        System.out.println("7. Find the department head with highest number of employees under management");
+        System.out.println("8. Print out employee list following ascending alphabetical order of their names");
+        System.out.println("9. Print out employee list following descending order of their salaries");
+        System.out.println("10. Find the director with highest equity");
+        System.out.println("11. Print out each director's income");
         System.out.println("Exit");
 
-        System.out.println("Hay chon 1 chuc nang: ");
+        System.out.println("Choose one function: ");
         String option = sc.next();
         return option;
     }
