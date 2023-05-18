@@ -5,7 +5,7 @@ public class Person implements Comparable<Person> {
     private int numberofWorkingDays;
     private int dailySalary;
 
-    public NhanSu(String id, String name, String phoneNumber, int numberofWorkingDays, int dailySalary) {
+    public Person(String id, String name, String phoneNumber, int numberofWorkingDays, int dailySalary) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
