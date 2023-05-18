@@ -1,68 +1,64 @@
-public class NhanSu implements Comparable<NhanSu> {
-    private String maSo;
-    private String hoTen;
-    private String soDienThoai;
-    private int soNgayLamViec;
-    private int luongTheoNgay;
+public class Person implements Comparable<Person> {
+    private String id;
+    private String name;
+    private String phoneNumber;
+    private int numberofWorkingDays;
+    private int dailySalary;
 
-    public NhanSu(String maSo, String hoTen, String soDienThoai, int soNgayLamViec, int luongTheoNgay) {
-        this.maSo = maSo;
-        this.hoTen = hoTen;
-        this.soDienThoai = soDienThoai;
-        this.soNgayLamViec = soNgayLamViec;
-        this.luongTheoNgay = luongTheoNgay;
+    public NhanSu(String id, String name, String phoneNumber, int numberofWorkingDays, int dailySalary) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.numberofWorkingDays = numberofWorkingDays;
+        this.dailySalary = dailySalary;
+    }
+    
+    public String getId() {
+        return id;
     }
 
-//    public NhanSu() {
-//
-//    }
-
-    public String getMaSo() {
-        return maSo;
+    public String getName() {
+        return name;
     }
 
-    public String getHoTen() {
-        return hoTen;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public String getSoDienThoai() {
-        return soDienThoai;
+    public int getNumberOfWorkingDays() {
+        return numberofWorkingDays;
     }
 
-    public int getSoNgayLamViec() {
-        return soNgayLamViec;
+    public int getDailySalary() {
+        return dailySalary;
     }
 
-    public int getLuongTheoNgay() {
-        return luongTheoNgay;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setMaSo(String maSo) {
-        this.maSo = maSo;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
+    public void setNumberOfWorkingDays(int numberofWorkingDays) {
+        this.numberofWorkingDays = numberofWorkingDays;
     }
 
-    public void setSoNgayLamViec(int soNgayLamViec) {
-        this.soNgayLamViec = soNgayLamViec;
-    }
-
-    public void setLuongTheoNgay(int luongTheoNgay) {
-        this.luongTheoNgay = luongTheoNgay;
+    public void setDailySalary(int dailySalary) {
+        this.dailySalary = dailySalary;
     }
     //toString
-    public void lietKeThongTinNhanVien(){
-        System.out.println("Ma so:" + this.getMaSo() + " Ho ten:"  + this.getHoTen() + " So dien thoai:" + this.getSoDienThoai() + " So ngay lam viec:" + this.getSoNgayLamViec() + " Luong theo ngay:" + this.getLuongTheoNgay());
+    public void personInfo(){
+        System.out.println("Id:" + this.getId() + " Name:"  + this.getName() + " Phone number:" + this.getPhoneNumber() + " Number of working days:" + this.getNumberOfWorkingDays() + " Daily salary:" + this.getDailySalary());
     }
 
     @Override
-    public int compareTo(NhanSu o) {
-        return (int)(this.getMaSo().compareTo(o.getMaSo()));
+    public int compareTo(Person o) {
+        return (int)(this.getId().compareTo(o.getId()));
     }
 }
