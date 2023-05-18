@@ -27,46 +27,45 @@ public class Main {
                 //Input info of directors
                 System.out.println("Input director's salary: ");
                 int numberOfDirectors = sc.nextInt();
-                //tao array list giam doc
+                //create an array list of directors
                 for (int i = 1; i <= numberOfDirectors; i++) {
                     System.out.println("Input Id of director number " + i + ":");
-                    String maSo = sc.next();
+                    String Id = sc.next();
                     System.out.println("Input name of director number " + i + ":");
-                    String hoTen = sc.next();
+                    String name = sc.next();
                     System.out.println("Input phone number of director number " + i + ":");
-                    String soDienThoai = sc.next();
+                    String phoneNumber = sc.next();
                     System.out.println("Input number of working days of director number " + i + ":");
-                    int soNgayLamViec = sc.nextInt();
+                    int numberOfWorkingDays = sc.nextInt();
                     System.out.println("Input percentage of equity that director number " + i + " is having:");
-                    double coPhanNamGiu = sc.nextDouble();
-                    Director newDirectorObj = new Director(maSo, hoTen, soDienThoai, soNgayLamViec, 300, coPhanNamGiu); //300 is daily salary of directors
+                    double percentageOfEquity = sc.nextDouble();
+                    Director newDirectorObj = new Director(Id, name, phoneNumber, numberOfWorkingDays, 300, percentageOfEquity); //300 is daily salary of directors
                     listDirector1.add(newDirectorObj);
-                    System.out.println("Danh sach giam doc den thoi diem hien tai: ");
-                    //liet ke danh sach giam doc
+                    System.out.println("Print out directors' info: ");
                     for (Director gd : listDirector1) gd.personInfo();
                 }
 
-                //THEM THONG TIN CAC TRUONG PHONG
-                System.out.println("Nhap vao so luong truong phong: ");
-                int soLuongTruongPhong = sc.nextInt();
-                //tao array list truong phong
-                for (int i = 1; i <= soLuongTruongPhong; i++) {
-                    System.out.println("Nhap vao ma so cua truong phong thu " + i + ":");
-                    String maSo = sc.next();
-                    System.out.println("Nhap vao ho ten cua truong phong thu " + i + ":");
-                    String hoTen = sc.next();
-                    System.out.println("Nhap vao so dien thoai cua truong phong thu " + i + ":");
-                    String soDienThoai = sc.next();
-                    System.out.println("Nhap vao so ngay lam viec cua truong phong thu " + i + ":");
-                    int soNgayLamViec = sc.nextInt();
-                    System.out.println("Nhap vao so luong nhan vien cap duoi cua truong phong thu " + i + ":");
-                    int soLuongNhanVienCapDuoi = sc.nextInt();
-                    DepartmentHead newTruongPhongObj = new DepartmentHead(maSo, hoTen, soDienThoai, soNgayLamViec, 200, soLuongNhanVienCapDuoi);
-                    listDepartmentHead1.add(newTruongPhongObj);
-                    System.out.println("Danh sach truong phong den thoi diem hien tai: ");
+                //Input department heads' info
+                System.out.println("Input number of department heads: ");
+                int numberOfDepartmentHeads = sc.nextInt();
+                //create an array list of department heads
+                for (int i = 1; i <= numberOfDepartmentHeads; i++) {
+                    System.out.println("Input Id of department head number " + i + ":");
+                    String Id = sc.next();
+                    System.out.println("Input name of department head number " + i + ":");
+                    String name = sc.next();
+                    System.out.println("Input phone number of department head number " + i + ":");
+                    String phoneNumber = sc.next();
+                    System.out.println("Input phone number of working days of department head number " + i + ":");
+                    int numberOfWorkingDays = sc.nextInt();
+                    System.out.println("Input number of employees of department head number " + i + ":");
+                    int numberOfEmployees = sc.nextInt();
+                    DepartmentHead newDepartmentHeadObj = new DepartmentHead(Id, name, phoneNumber, numberOfWorkingDays, 200, numberOfEmployees);
+                    listDepartmentHead1.add(newDepartmentHeadObj);
+                    System.out.println("Print out department heads info: ");
                     for (DepartmentHead tp : listDepartmentHead1) {
-                        tp.lietKeThongTinNhanVien();
-                        System.out.println("So nhan vien cap duoi: " + tp.getSoLuongNVcapDuoi());
+                        tp.personInfo();
+                        System.out.println("number of employees: " + tp.getNumberOfEmployee());
                     }
                 }
                 break;
