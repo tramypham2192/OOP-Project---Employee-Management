@@ -3,47 +3,47 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String optionDuocChon = chonOption(sc);
-        ArrayList<GiamDoc> listGiamDoc = new ArrayList<>();
-        ArrayList<TruongPhong> listTruongPhong = new ArrayList<>();
-        ArrayList<NhanVien> listNhanVienCapDuoi = new ArrayList<>();
-        ArrayList<ArrayList> danhSachToanBoCongNhanVien = new ArrayList<>();
-        danhSachToanBoCongNhanVien.add(listGiamDoc);
-        danhSachToanBoCongNhanVien.add(listTruongPhong);
-        danhSachToanBoCongNhanVien.add(listNhanVienCapDuoi);
-        while (!(optionDuocChon.equals("Exit"))){
-            danhSachToanBoCongNhanVien = manage(sc, optionDuocChon, danhSachToanBoCongNhanVien);
-            optionDuocChon = chonOption(sc);
+        String chooseOption = chooseAnOption(sc);
+        ArrayList<Director> directorList = new ArrayList<>();
+        ArrayList<DepartmentHead> departmentHeadList = new ArrayList<>();
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        ArrayList<ArrayList> listOfAllWorkers = new ArrayList<>();
+        listOfAllWorkers.add(directorList);
+        listOfAllWorkers.add(departmentHeadList);
+        listOfAllWorkers.add(employeeList);
+        while (!(chooseOption.equals("Exit"))){
+            listOfAllWorkers = manage(sc, chooseOption, listOfAllWorkers);
+            chooseOption = chooseAnOption(sc);
         }
     }
 
-    public static ArrayList<ArrayList> manage(Scanner sc, String option, ArrayList<ArrayList> danhSachToanBoCongNhanVien) {
+    public static ArrayList<ArrayList> manage(Scanner sc, String option, ArrayList<ArrayList> listOfAllWorkers) {
         switch (option) {
             case "1":
-                ArrayList<GiamDoc> danhSachGiamDoc = danhSachToanBoCongNhanVien.get(0);
-                ArrayList<TruongPhong> danhSachTruongPhong = danhSachToanBoCongNhanVien.get(1);
-                System.out.println("Nhap vao thong tin cong ty ");
+                ArrayList<Director> listDirector1 = listOfAllWorkers.get(0);
+                ArrayList<DepartmentHead> listDepartmentHead1 = listOfAllWorkers.get(1);
+                System.out.println("Input workers info: ");
 
-                //THEM THONG TIN CAC GIAM DOC
-                System.out.println("Nhap vao so luong giam doc: ");
-                int soLuongGiamDoc = sc.nextInt();
+                //Input info of directors
+                System.out.println("Input director's salary: ");
+                int numberOfDirectors = sc.nextInt();
                 //tao array list giam doc
-                for (int i = 1; i <= soLuongGiamDoc; i++) {
-                    System.out.println("Nhap vao ma so cua giam doc thu " + i + ":");
+                for (int i = 1; i <= numberOfDirectors; i++) {
+                    System.out.println("Input Id of director number " + i + ":");
                     String maSo = sc.next();
-                    System.out.println("Nhap vao ho ten cua giam doc thu " + i + ":");
+                    System.out.println("Input name of director number " + i + ":");
                     String hoTen = sc.next();
-                    System.out.println("Nhap vao so dien thoai cua giam doc thu " + i + ":");
+                    System.out.println("Input phone number of director number " + i + ":");
                     String soDienThoai = sc.next();
-                    System.out.println("Nhap vao so ngay lam viec cua giam doc thu " + i + ":");
+                    System.out.println("Input number of working days of director number " + i + ":");
                     int soNgayLamViec = sc.nextInt();
-                    System.out.println("Nhap vao so co phan nam giu cua giam doc thu " + i + ":");
+                    System.out.println("Input percentage of equity that director number " + i + " is having:");
                     double coPhanNamGiu = sc.nextDouble();
-                    GiamDoc newGiamDocObj = new GiamDoc(maSo, hoTen, soDienThoai, soNgayLamViec, 300, coPhanNamGiu); //300 la luong giam doc 1 ngay
-                    danhSachGiamDoc.add(newGiamDocObj);
+                    Director newDirectorObj = new Director(maSo, hoTen, soDienThoai, soNgayLamViec, 300, coPhanNamGiu); //300 is daily salary of directors
+                    listDirector1.add(newDirectorObj);
                     System.out.println("Danh sach giam doc den thoi diem hien tai: ");
                     //liet ke danh sach giam doc
-                    for (GiamDoc gd : danhSachGiamDoc) gd.lietKeThongTinNhanVien();
+                    for (Director gd : listDirector1) gd.personInfo();
                 }
 
                 //THEM THONG TIN CAC TRUONG PHONG
@@ -61,10 +61,10 @@ public class Main {
                     int soNgayLamViec = sc.nextInt();
                     System.out.println("Nhap vao so luong nhan vien cap duoi cua truong phong thu " + i + ":");
                     int soLuongNhanVienCapDuoi = sc.nextInt();
-                    TruongPhong newTruongPhongObj = new TruongPhong(maSo, hoTen, soDienThoai, soNgayLamViec, 200, soLuongNhanVienCapDuoi);
-                    danhSachTruongPhong.add(newTruongPhongObj);
+                    DepartmentHead newTruongPhongObj = new DepartmentHead(maSo, hoTen, soDienThoai, soNgayLamViec, 200, soLuongNhanVienCapDuoi);
+                    listDepartmentHead1.add(newTruongPhongObj);
                     System.out.println("Danh sach truong phong den thoi diem hien tai: ");
-                    for (TruongPhong tp : danhSachTruongPhong) {
+                    for (DepartmentHead tp : listDepartmentHead1) {
                         tp.lietKeThongTinNhanVien();
                         System.out.println("So nhan vien cap duoi: " + tp.getSoLuongNVcapDuoi());
                     }
@@ -73,17 +73,17 @@ public class Main {
 
             case "2":
                 //Lay ra danh sach toan bo cong nhan vien trong cong ty roi lay ra danh sach truong phong dang co
-                ArrayList<TruongPhong> danhSachTruongPhongDangCo = danhSachToanBoCongNhanVien.get(1);
-                ArrayList<NhanVien> danhSachNhanVienCapDuoiDangCo = danhSachToanBoCongNhanVien.get(2);
+                ArrayList<DepartmentHead> listDepartmentHead2 = listOfAllWorkers.get(1);
+                ArrayList<NhanVien> danhSachNhanVienCapDuoiDangCo = listOfAllWorkers.get(2);
                 //Nhap thong tin truong phong can them nhan vien
                 System.out.println("Nhap vao ma so cua truong phong can phan bo them nhan vien: ");
                 String maSoCuaTruongPhongCanThemNhanVien = sc.next();
                 //Tinh so nhan vien can them vao cho truong phong co ma so nhu tren va get danh sach nhan vien cap duoi hien tai truong
                 //phong co ma so nhu tren dang co
                 int soNhanVienCanThem = 0;
-                for (int i = 0; i < danhSachTruongPhongDangCo.size(); i++){
-                    if (danhSachTruongPhongDangCo.get(i).getMaSo().equals(maSoCuaTruongPhongCanThemNhanVien)){
-                        soNhanVienCanThem = danhSachTruongPhongDangCo.get(i).getSoLuongNVcapDuoi() - danhSachTruongPhongDangCo.get(i).danhSachNhanVienDuoiQuyen.size();
+                for (int i = 0; i < listDepartmentHead2.size(); i++){
+                    if (listDepartmentHead2.get(i).getMaSo().equals(maSoCuaTruongPhongCanThemNhanVien)){
+                        soNhanVienCanThem = listDepartmentHead2.get(i).getSoLuongNVcapDuoi() - listDepartmentHead2.get(i).danhSachNhanVienDuoiQuyen.size();
                     }
                 }
                 System.out.println("Truong phong co ma so " + maSoCuaTruongPhongCanThemNhanVien + " can duoc them " + soNhanVienCanThem + " nhan vien" );
@@ -132,7 +132,7 @@ public class Main {
                 break;
 
             case "3":
-                ArrayList<NhanVien> danhSachNhanVien = danhSachToanBoCongNhanVien.get(2);
+                ArrayList<NhanVien> danhSachNhanVien = listOfAllWorkers.get(2);
                 System.out.println("Ban can thay doi thong tin nhan vien hay xoa nhan vien do khoi danh sach nhan vien?: ");
                 String luaChon = sc.next();
                 if (luaChon.equals("thaydoi")){
@@ -167,22 +167,22 @@ public class Main {
 
             case "4":
                 System.out.println("danh sach toan bo cong nhan vien: ");
-                for (int i = 0; i < danhSachToanBoCongNhanVien.size(); i++){
-                    System.out.println(danhSachToanBoCongNhanVien.get(i));
+                for (int i = 0; i < listOfAllWorkers.size(); i++){
+                    System.out.println(listOfAllWorkers.get(i));
                 }
                 System.out.println("Danh sach cac giam doc: ");
-                ArrayList<GiamDoc> listGiamDoc = danhSachToanBoCongNhanVien.get(0);
+                ArrayList<Director> listGiamDoc = listOfAllWorkers.get(0);
                 for (int i = 0; i < listGiamDoc.size() ; i++){
                     listGiamDoc.get(i).lietKeThongTinNhanVien();
                 }
                 System.out.println("Danh sach cac truong phong: ");
-                ArrayList<TruongPhong> listTruongPhong = danhSachToanBoCongNhanVien.get(1);
-                for (TruongPhong tp : listTruongPhong){
+                ArrayList<DepartmentHead> departmentHeadList = listOfAllWorkers.get(1);
+                for (DepartmentHead tp : departmentHeadList){
                     tp.lietKeThongTinNhanVien();
                 }
                 System.out.println("Danh sach cac nhan vien cap duoi cua truong phong: ");
-                ArrayList<NhanVien> listNhanVienCapDuoi = danhSachToanBoCongNhanVien.get(2);
-                for (NhanVien nv : listNhanVienCapDuoi){
+                ArrayList<NhanVien> employeeList = listOfAllWorkers.get(2);
+                for (NhanVien nv : employeeList){
                     nv.lietKeThongTinNhanVien();
                 }
                 break;
@@ -190,21 +190,21 @@ public class Main {
             case "5":
                 //tong luong cac giam doc
                 int tongLuongGiamDoc = 0;
-                ArrayList<GiamDoc> lstGD = danhSachToanBoCongNhanVien.get(0);
-                for (GiamDoc gd : lstGD){
+                ArrayList<Director> lstGD = listOfAllWorkers.get(0);
+                for (Director gd : lstGD){
                     tongLuongGiamDoc += gd.getLuongTheoNgay() * gd.getSoNgayLamViec();
                 }
                 System.out.println("Tong luong cua cac giam doc: " + tongLuongGiamDoc);
                 //tong luong cac truong phong
                 int tongLuongTruongPhong = 0;
-                ArrayList<TruongPhong> lstTP = danhSachToanBoCongNhanVien.get(1);
+                ArrayList<TruongPhong> lstTP = listOfAllWorkers.get(1);
                 for (TruongPhong tp : lstTP){
                     tongLuongTruongPhong += tp.getLuongTheoNgay() * tp.getSoNgayLamViec();
                 }
                 System.out.println("Tong luong cua cac truong phong: " + tongLuongTruongPhong);
                 //tong luong nhan vien cap duoi
                 int tongLuongNVCapDuoi = 0;
-                ArrayList<NhanVien> lstNV = danhSachToanBoCongNhanVien.get(2);
+                ArrayList<NhanVien> lstNV = listOfAllWorkers.get(2);
                 for (NhanVien nv : lstNV){
                     tongLuongNVCapDuoi += nv.getLuongTheoNgay() * nv.getSoNgayLamViec();
                 }
@@ -214,7 +214,7 @@ public class Main {
                 break;
 
             case "6":
-                ArrayList<NhanVien> listNV = danhSachToanBoCongNhanVien.get(2);
+                ArrayList<NhanVien> listNV = listOfAllWorkers.get(2);
                 ArrayList<Integer> listLuongNV = new ArrayList<>();
                 for (NhanVien nv : listNV){
                     listLuongNV.add(nv.getLuongTheoNgay() * nv.getSoNgayLamViec());
@@ -231,7 +231,7 @@ public class Main {
                 break;
 
             case "7":
-                ArrayList<TruongPhong> listTP = danhSachToanBoCongNhanVien.get(1);
+                ArrayList<DepartmentHead> listTP = listOfAllWorkers.get(1);
                 int maxSoLuongNVcapDuoi = 0;
                 int indexCuaTPcoMaxSoNVcapDuoi = 0;
                 for (int i = 0; i < listTP.size(); i++){
@@ -244,7 +244,7 @@ public class Main {
                         " so luong nhan vien duoi quyen nhieu nhat (" + listTP.get(indexCuaTPcoMaxSoNVcapDuoi).getSoLuongNVcapDuoi() +" nhan vien)" );
 
             case "8":
-                ArrayList<NhanVien> listNVien = danhSachToanBoCongNhanVien.get(2);
+                ArrayList<NhanVien> listNVien = listOfAllWorkers.get(2);
                 Map<String, NhanVien> map = new HashMap<>();
                 for (int i = 0; i < listNVien.size(); i++){
                     map.put(listNVien.get(i).getHoTen(), listNVien.get(i));
@@ -257,7 +257,7 @@ public class Main {
                 }
 
             case "9":
-                ArrayList<NhanVien> listEmployee = danhSachToanBoCongNhanVien.get(2);
+                ArrayList<NhanVien> listEmployee = listOfAllWorkers.get(2);
                 Map<Integer, NhanVien> sortedSalaryMap = new TreeMap<Integer, NhanVien>(Collections.reverseOrder());
                 for (int i = 0; i < listEmployee.size(); i++){
                     Integer luongNV = 100 * listEmployee.get(i).getSoNgayLamViec();
@@ -271,7 +271,7 @@ public class Main {
                 break;
 
             case "10":
-                ArrayList<GiamDoc> listGD = danhSachToanBoCongNhanVien.get(0);
+                ArrayList<Director> listGD = listOfAllWorkers.get(0);
                 double maxCoPhanNamGiu = 0;
                 int indexCoPhanMax = 0;
                 for (int i = 0; i < listGD.size(); i++){
@@ -284,16 +284,16 @@ public class Main {
                 break;
 
             case "11":
-                ArrayList<GiamDoc> listGDoc = danhSachToanBoCongNhanVien.get(0);
+                ArrayList<Director> listGDoc = listOfAllWorkers.get(0);
                 for (int i = 0; i < listGDoc.size(); i++){
                     System.out.println("Giam doc co ma so " + listGDoc.get(i).getMaSo() + " co thu nhap thang nay la: " + listGDoc.get(i).thuNhapCuaGiamDoc(listGDoc.get(i).getSoNgayLamViec()));
                 }
                 break;
         }
-        return danhSachToanBoCongNhanVien;
+        return listOfAllWorkers;
     }
 
-    public static String chonOption(Scanner sc){
+    public static String chooseAnOption(Scanner sc){
         System.out.println("Cac chuc nang: ");
         System.out.println("1. Nhap thong tin cong ty");
         System.out.println("2. Phan bo nhan vien vao truong phong");
